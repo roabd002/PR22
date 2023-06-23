@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="hinterGrund" prefHeight="390.0" prefWidth="750.0" style="-fx-background-color: F8F8FF;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.propofolrechner.Controller">
+<AnchorPane fx:id="hinterGrund" prefHeight="390.0" prefWidth="750.0" style="-fx-background-color: F8F8FF;" stylesheets="@Diagram.CSS" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.propofolrechner.Controller">
    <children>
       <VBox layoutX="23.0" layoutY="19.0" prefHeight="385.0" prefWidth="231.0" spacing="10.0" style="-fx-background-image: url(&quot;sample/propofolrechner/Hintergrund.png&quot;);">
          <children>

@@ -156,18 +156,24 @@ public class Controller {
     private void handleLoadButton() {
         m.load("testFile.txt");
         if (m.getLinkedList().size() > 0) {
-            Patient patient = m.getLinkedList().get(0);
+            //Patient patient = m.getLinkedList().get(0);
+            Patient patient = m.getLinkedList().durchsuche(nameEingabe.getText());
             updateFormData(patient);
+            if(patient != null) {
+                updateFormData(patient);
+            }
         }
     }
+
     @FXML Button anzeigeEingabe;
     @FXML
     private void handleAnzeigeButton(){
-       // m.getLinkedList().durchsuche(nameEingabe.getText());
+
         updateFormData(m.getLinkedList().durchsuche(nameEingabe.getText()));
+
     }
 
-    private void updateFormData(Patient patient) {
+   /* private void updateFormData(Patient patient) {
      //   Patient patient1 = m.getLinkedList().get(nameEingabe.setText(patient.getName()));
       //  nameEingabe.setText(m.getLinkedList().get(m.getLinkedList().durchsuche(nameEingabe.getText()).getName(0)));
         dateEingabe.setValue(LocalDate.parse(patient.getDate()));
@@ -176,6 +182,16 @@ public class Controller {
         readHeadEingabe.setSelected(patient.isReadHead());
         drugAddictEingabe.setSelected(patient.isDrugAddict());
     }
+
+    */
+   private void updateFormData(Patient patient) {
+       nameEingabe.setText(patient.getName());
+       dateEingabe.setValue(LocalDate.parse(patient.getDate()));
+       medicalHistoryEingabe.setText(patient.getMedicalHistory());
+       alcoholAddictEingabe.setSelected(patient.isAlcoholAddict());
+       readHeadEingabe.setSelected(patient.isReadHead());
+       drugAddictEingabe.setSelected(patient.isDrugAddict());
+   }
 
 
     @FXML
