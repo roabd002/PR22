@@ -5,57 +5,63 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="hinterGrund" prefHeight="390.0" prefWidth="750.0" style="-fx-background-color: F8F8FF;" stylesheets="@Diagram.CSS" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.propofolrechner.Controller">
+<AnchorPane fx:id="hinterGrund" prefHeight="390.0" prefWidth="750.0" style="-fx-background-color: F0F8FF;" stylesheets="@Diagram.CSS" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.propofolrechner.Controller">
    <children>
       <VBox layoutX="23.0" layoutY="19.0" prefHeight="385.0" prefWidth="231.0" spacing="10.0" style="-fx-background-image: url(&quot;sample/propofolrechner/Hintergrund.png&quot;);">
          <children>
             <Label text="weight in kg:">
                <font>
-                  <Font name="Old English Text MT" size="13.0" />
+                  <Font name="Arial" size="13.0" />
                </font></Label>
             <TextField fx:id="weightEingabe" prefHeight="27.0" prefWidth="231.0" promptText="0.0" style="-fx-border-color: E6E6FA;">
                <font>
-                  <Font name="Old English Text MT" size="13.0" />
+                  <Font name="Arial" size="13.0" />
                </font>
                <VBox.margin>
                   <Insets right="30.0" />
                </VBox.margin></TextField>
             <Label text="Op duration in min:">
                <font>
-                  <Font name="Old English Text MT" size="13.0" />
+                  <Font name="Arial" size="13.0" />
                </font></Label>
             <TextField fx:id="opEingabe" prefHeight="27.0" prefWidth="232.0" promptText="0.0" style="-fx-border-color: E6E6FA;">
                <font>
-                  <Font name="Old English Text MT" size="13.0" />
+                  <Font name="Arial" size="13.0" />
                </font>
                <VBox.margin>
                   <Insets right="30.0" />
                </VBox.margin></TextField>
             <Button fx:id="rechnenButton" mnemonicParsing="false" onAction="#handleRechnenButton" text="Calculate">
                <font>
-                  <Font name="Old English Text MT" size="13.0" />
+                  <Font name="Arial" size="13.0" />
                </font></Button>
             <Label text="Dose in mg:">
                <font>
-                  <Font name="Old English Text MT" size="13.0" />
+                  <Font name="Arial" size="13.0" />
                </font></Label>
-            <Label fx:id="dose" />
+            <Label fx:id="dose">
+               <font>
+                  <Font name="Arial" size="13.0" />
+               </font></Label>
             <Label text="Infusion rate in ml/h:">
                <font>
-                  <Font name="Old English Text MT" size="13.0" />
+                  <Font name="Arial" size="13.0" />
                </font></Label>
-            <Label fx:id="infusionRate" />
+            <Label fx:id="infusionRate">
+               <font>
+                  <Font name="Arial" size="13.0" />
+               </font></Label>
             <Button fx:id="diagramButton" mnemonicParsing="false" onAction="#handleDiagramButton" text="Diagram">
                <font>
-                  <Font name="Old English Text MT" size="13.0" />
+                  <Font name="Arial" size="13.0" />
                </font></Button>
             <Button fx:id="infusionButton" mnemonicParsing="false" onAction="#handleInfusionButton" text="Prepare Infusion">
                <font>
-                  <Font name="Old English Text MT" size="13.0" />
+                  <Font name="Arial" size="13.0" />
                </font></Button>
             <Button fx:id="propofolButton" mnemonicParsing="false" onAction="#handlePropofolButton" text="More to Propofol">
                <font>
-                  <Font name="Old English Text MT" size="13.0" />
+                  <Font name="Arial" size="13.0" />
                </font></Button>
          </children></VBox>
       <VBox layoutX="280.0" layoutY="14.0" prefHeight="385.0" prefWidth="521.0" spacing="10.0">
@@ -64,46 +70,46 @@
                <children>
                   <HBox prefHeight="70.0" prefWidth="521.0" spacing="10.0">
                      <children>
-                        <Label prefHeight="25.0" prefWidth="38.0" text="Name:">
+                        <Label prefHeight="25.0" prefWidth="55.0" text="Name:">
                            <font>
-                              <Font name="Old English Text MT" size="13.0" />
+                              <Font name="Arial" size="13.0" />
                            </font></Label>
-                        <TextField fx:id="nameEingabe" prefHeight="27.0" prefWidth="179.0" style="-fx-border-color: E6E6FA;">
+                        <TextField fx:id="nameEingabe" prefHeight="27.0" prefWidth="179.0" promptText="Max Mustermann" style="-fx-border-color: E6E6FA;">
                            <font>
-                              <Font name="Old English Text MT" size="13.0" />
+                              <Font name="Arial" size="13.0" />
                            </font></TextField>
                         <Label prefHeight="25.0" prefWidth="42.0" text="Date:">
                            <font>
-                              <Font name="Old English Text MT" size="13.0" />
+                              <Font name="Arial" size="13.0" />
                            </font></Label>
-                        <DatePicker fx:id="dateEingabe" prefHeight="25.0" prefWidth="189.0" style="-fx-background-color: E6E6FA;" />
+                        <DatePicker fx:id="dateEingabe" prefHeight="25.0" prefWidth="189.0" promptText="XX.XX.XXXX" style="-fx-background-color: E6E6FA;" />
                      </children>
                   </HBox>
                   <Label text="Medical History: ">
                      <font>
-                        <Font name="Old English Text MT" size="13.0" />
+                        <Font name="Arial" size="13.0" />
                      </font></Label>
                   <HBox prefHeight="221.0" prefWidth="331.0">
                      <children>
-                        <TextArea fx:id="medicalHistoryEingabe" prefHeight="250.0" prefWidth="485.0" promptText="Medical History" style="-fx-background-color: E6E6FA;" text="&#10;">
+                        <TextArea fx:id="medicalHistoryEingabe" prefHeight="207.0" prefWidth="485.0" promptText="Medical History" style="-fx-background-color: E6E6FA;" text="&#10;">
                            <font>
-                              <Font name="Old English Text MT" size="13.0" />
+                              <Font name="Arial" size="13.0" />
                            </font></TextArea>
                      </children>
                   </HBox>
                   <HBox prefHeight="65.0" prefWidth="521.0">
                      <children>
-                        <CheckBox fx:id="readHeadEingabe" mnemonicParsing="false" prefHeight="17.0" prefWidth="90.0" text="Readhead">
+                        <CheckBox fx:id="readHeadEingabe" mnemonicParsing="false" onAction="#handleReadHead" prefHeight="18.0" prefWidth="100.0" text="Readhead">
                            <font>
-                              <Font name="Old English Text MT" size="13.0" />
+                              <Font name="Arial" size="13.0" />
                            </font></CheckBox>
-                        <CheckBox fx:id="drugAddictEingabe" mnemonicParsing="false" prefHeight="17.0" prefWidth="106.0" text="Drug Addict">
+                        <CheckBox fx:id="alcoholAddictEingabe" mnemonicParsing="false" onAction="#handleAlcoholAddict" prefHeight="18.0" prefWidth="127.0" text="Alcohol Addict">
                            <font>
-                              <Font name="Old English Text MT" size="13.0" />
+                              <Font name="Arial" size="13.0" />
                            </font></CheckBox>
-                        <CheckBox fx:id="alcoholAddictEingabe" mnemonicParsing="false" text="Alcohol Addict">
+                        <CheckBox fx:id="drugAddictEingabe" mnemonicParsing="false" onAction="#handleDrugAddict" prefHeight="18.0" prefWidth="116.0" text="Drug Addict">
                            <font>
-                              <Font name="Old English Text MT" size="13.0" />
+                              <Font name="Arial" size="13.0" />
                            </font></CheckBox>
                      </children>
                      <padding>
@@ -115,20 +121,17 @@
                <children>
                   <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleSaveButton" text="Save">
                      <font>
-                        <Font name="Old English Text MT" size="13.0" />
+                        <Font name="Arial" size="13.0" />
                      </font>
                   </Button>
                   <Button fx:id="loadButton" mnemonicParsing="false" onAction="#handleLoadButton" text="Load">
                      <font>
-                        <Font name="Old English Text MT" size="13.0" />
+                        <Font name="Arial" size="13.0" />
                      </font>
-                     <graphic>
-                        <Button fx:id="anzeigeButton" mnemonicParsing="false" onAction="#handleAnzeigeButton" text="Anzeige" />
-                     </graphic>
                   </Button>
                </children>
                <padding>
-                  <Insets left="180.0" />
+                  <Insets left="191.0" />
                </padding>
             </HBox>
          </children></VBox>

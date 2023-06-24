@@ -13,16 +13,21 @@ public class Patient implements Serializable {
     private boolean drugAddict;
     private boolean alcoholAddict;
     private Patient next;
+    private Controller controller;
+
+
+
 
     public Patient(String name){
         this.name =name;
         next = null;
     }
+
+   // public void setPatientName(String name)
     /*public Patient(String name, Patient next){
         this.name =name;
         this.next = next;
     }
-
      */
 
     public String getName() {
@@ -74,6 +79,8 @@ public class Patient implements Serializable {
     public boolean isAlcoholAddict() {
         return alcoholAddict;
     }
+
+
 
     public void setAlcoholAddict(boolean alcoholAddict) {
         this.alcoholAddict = alcoholAddict;

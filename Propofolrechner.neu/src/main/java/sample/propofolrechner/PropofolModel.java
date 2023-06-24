@@ -52,9 +52,11 @@ public class PropofolModel {
 
     private DoubleProperty dose = new SimpleDoubleProperty();
     private DoubleProperty infusionRate = new SimpleDoubleProperty();
-    private SimpleBooleanProperty rothaarig = new SimpleBooleanProperty();
-    private SimpleBooleanProperty drogenabhaengig = new SimpleBooleanProperty();
+    private BooleanProperty rothaarig = new SimpleBooleanProperty();
+    private BooleanProperty drogenabhaengig = new SimpleBooleanProperty();
     private SimpleBooleanProperty alkoholabhaengig = new SimpleBooleanProperty();
+
+
 
     private static final double MAX_WEIGHT = 600.0;
 
@@ -74,15 +76,15 @@ public class PropofolModel {
         return infusionRate;
     }
 
-    public SimpleBooleanProperty rothaarigProperty() {
+    public BooleanProperty rothaarigProperty() {
         return rothaarig;
     }
 
-    public SimpleBooleanProperty drogenabhaengigProperty() {
+    public BooleanProperty drogenabhaengigProperty() {
         return drogenabhaengig;
     }
 
-    public SimpleBooleanProperty alkoholabhaengigProperty() {
+    public BooleanProperty alkoholabhaengigProperty() {
         return alkoholabhaengig;
     }
 
@@ -99,6 +101,7 @@ public class PropofolModel {
     }
 
     private String date;
+
     public StringProperty nameProperty() {
         return name;
     }
@@ -110,9 +113,11 @@ public class PropofolModel {
     public String medicalHistoryProperty() {
         return medicalHistory;
     }
-    public double calculateDose(boolean rothaarig, boolean drogenabhaengig, boolean alkoholabhaenig) {
+
+
+    public double calculateDose() {
         double weightValue = weight.get();
-        double opdauerValue = opdauer.get();
+        double doseValue;
 
 
         if (weightValue > MAX_WEIGHT) {
@@ -121,63 +126,37 @@ public class PropofolModel {
             return 0;
         }
 
-        double doseValue = weightValue * 1.5;
+        doseValue = weightValue*1.5;
 
         if (weightValue < 20) {
             doseValue = weightValue * 1;
         }
 
-        if (rothaarig || drogenabhaengig || alkoholabhaenig) {
+        if (rothaarigProperty().get()) {
             doseValue = weightValue * 2;
         }
 
-        if ((drogenabhaengig && alkoholabhaenig) || (drogenabhaengig && rothaarig) || (alkoholabhaenig && rothaarig)) {
+        if (alkoholabhaengig.get()) {
+            doseValue = weightValue * 2;
+        }
+
+        if (drogenabhaengig.get()) {
+            doseValue = weightValue * 2;
+        }
+
+
+        if (drogenabhaengig.get() & alkoholabhaengig.get() || drogenabhaengig.get() & rothaarig.get() || alkoholabhaengig.get() & rothaarig.get()) {
             doseValue = weightValue * 2.5;
         }
 
-        if (drogenabhaengig && alkoholabhaenig && rothaarig) {
+        if (drogenabhaengig.get() & alkoholabhaengig.get() & rothaarig.get()) {
             doseValue = weightValue * 3;
         }
 
-        double infusionRateValue = doseValue * (opdauerValue / 60);
-
-        // Ergebnis auf 2 Nachkommastellen abrunden
-        doseValue = Math.round(doseValue * 100.0) / 100.0;
-        infusionRateValue = Math.round(infusionRateValue * 100.0) / 100.0;
-
-        dose.set(doseValue);
-        infusionRate.set(infusionRateValue);
-
-        return doseValue;
-    }
-
-    public double calculateInfusionRate(boolean rothaarig, boolean drogenabhaengig, boolean alkoholabhaenig) {
-        double opdauerValue = opdauer.get();
-        double doseValue = calculateDose(rothaarig, drogenabhaengig, alkoholabhaenig);
-        double infusionRateValue = doseValue * (opdauerValue / 60);
-        infusionRateValue = Math.round(infusionRateValue * 100.0) / 100.0;
-        infusionRate.set(infusionRateValue);
-        return infusionRateValue;
-    }
-
-
-   /* public double calculateDose() {
-        double weightValue = weight.get();
-        double doseValue;
-        if (weightValue > MAX_WEIGHT) {
-            dose.set(0);
-            infusionRate.set(0);
-            return 0;
-        } else if (drogenabhaengig.get() || alkoholabhaengig.get() || rothaarig.get()) {
-            doseValue = weightValue * 2;
-        } else {
-            doseValue = weightValue * 1.5;
-        }
         // Ergebnis auf 2 Nachkommastellen abrunden
         doseValue = Math.round(doseValue * 100.0) / 100.0;
         dose.set(doseValue);
         return doseValue;
-
     }
 
     public double calculateInfusionRate() {
@@ -189,9 +168,9 @@ public class PropofolModel {
         return infusionRateValue;
     }
 
-    */
 
 }
+
 
 
 

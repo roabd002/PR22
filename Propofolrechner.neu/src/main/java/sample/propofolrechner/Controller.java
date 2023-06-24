@@ -21,6 +21,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.stage.Stage;
 import java.time.LocalDate;
 
@@ -41,6 +42,13 @@ public class Controller {
     private PropofolModel model = new PropofolModel();
     private Model linkedModel = new Model();
     private XYChart.Series<Number, Number> series;
+   // private Model m;
+   // private PropofolModel pm;
+    public void setModels(Model x, PropofolModel y){
+        linkedModel = x;
+        model = y;
+    }
+    private Patient patient = new Patient("");
     @FXML
     private TextField weightEingabe;
     @FXML
@@ -116,29 +124,44 @@ public class Controller {
 
     }
 
-    private Model m;
-    private PropofolModel pm;
-    public void setModels(Model x, PropofolModel y){
-      m = x;
-      pm = y;
+    @FXML
+    public void handleAlcoholAddict() {
+        boolean isChecked = alcoholAddictEingabe.isSelected();
+        System.out.println("CheckboxAlcohol ist gedrückt: " + isChecked);
+
+        // Weitere Aktionen basierend auf dem Status der Checkbox...
+    }
+    @FXML
+    public void handleReadHead(){
+        boolean isChecked = readHeadEingabe.isSelected();
+        System.out.println("CheckboxReadHead ist gedrückt: " + isChecked);
+
+        // Weitere Aktionen basierend auf dem Status der Checkbox...
+    }
+    @FXML
+    public void handleDrugAddict(){
+        boolean isChecked = drugAddictEingabe.isSelected();
+        System.out.println("CheckboxDrugAddict ist gedrückt: " + isChecked);
     }
 
-    public void checkBoxHandle(){
-      // m.get(m.) readHeadEingabe.isSelected()
-    }
-    private Patient patient;
-
-    boolean rothaarig = true;// readHeadEingabe.isSelected(patient.isReadHead());
-    boolean drogenabhaengig = false;//drugAddictEingabe.isSelected(patient.isDrugAddict());
-    boolean alkoholabhaenig = false; //alcoholAddictEingabe.isSelected(patient.isAlcoholAddict());
 
     @FXML
-    private void handleRechnenButton() {
+    private void handleRechnenButton(ActionEvent actionEvent) {
         model.setWeight(weightEingabe.getText());
         model.setOp(opEingabe.getText());
-        dose.setText("" + model.calculateDose(rothaarig, drogenabhaengig, alkoholabhaenig));
-        infusionRate.setText("" + model.calculateInfusionRate(rothaarig, drogenabhaengig, alkoholabhaenig));
+        dose.setText("" + model.calculateDose());
+        infusionRate.setText("" + model.calculateInfusionRate());
+
+      /*  System.out.println(" alcohol= " + patient.isAlcoholAddict());
+        System.out.println("drogen=" + drugAddictEingabe);
+        System.out.println("drogen2=" + getDrugAddictEingabe());
+
+       */
+
+
     }
+
+
 
     @FXML
     private void handleSaveButton() {
@@ -154,36 +177,20 @@ public class Controller {
 
     @FXML
     private void handleLoadButton() {
-        m.load("testFile.txt");
-        if (m.getLinkedList().size() > 0) {
+       // m.load("testFile.txt");
+        linkedModel.load("testFile.txt");
+        if (linkedModel.getLinkedList().size() > 0) {
             //Patient patient = m.getLinkedList().get(0);
-            Patient patient = m.getLinkedList().durchsuche(nameEingabe.getText());
+            Patient patient = linkedModel.getLinkedList().durchsuche(nameEingabe.getText());
+            //updateFormData(m.getLinkedList().durchsuche(nameEingabe.getText()));
             updateFormData(patient);
+
             if(patient != null) {
                 updateFormData(patient);
             }
         }
     }
 
-    @FXML Button anzeigeEingabe;
-    @FXML
-    private void handleAnzeigeButton(){
-
-        updateFormData(m.getLinkedList().durchsuche(nameEingabe.getText()));
-
-    }
-
-   /* private void updateFormData(Patient patient) {
-     //   Patient patient1 = m.getLinkedList().get(nameEingabe.setText(patient.getName()));
-      //  nameEingabe.setText(m.getLinkedList().get(m.getLinkedList().durchsuche(nameEingabe.getText()).getName(0)));
-        dateEingabe.setValue(LocalDate.parse(patient.getDate()));
-        medicalHistoryEingabe.setText(patient.getMedicalHistory());
-        alcoholAddictEingabe.setSelected(patient.isAlcoholAddict());
-        readHeadEingabe.setSelected(patient.isReadHead());
-        drugAddictEingabe.setSelected(patient.isDrugAddict());
-    }
-
-    */
    private void updateFormData(Patient patient) {
        nameEingabe.setText(patient.getName());
        dateEingabe.setValue(LocalDate.parse(patient.getDate()));
@@ -193,10 +200,10 @@ public class Controller {
        drugAddictEingabe.setSelected(patient.isDrugAddict());
    }
 
-
     @FXML
     private void handleDiagramButton() {
         Stage chartStage = new Stage();
+
         chartStage.setTitle("Propofol dose over time");
 
         double opdauerMinutes = Double.parseDouble(opEingabe.getText());
@@ -206,16 +213,15 @@ public class Controller {
         NumberAxis yAxis = new NumberAxis(0, 1000, 100);
 
         LineChart<Number, Number> chart = new LineChart<>(xAxis, yAxis);
+        chart.getStylesheets().add(getClass().getResource("Diagram.css").toExternalForm());
         chart.setPrefWidth(600);
         chart.setPrefHeight(500);
         xAxis.setLabel("Time (hours)");
         yAxis.setLabel("Infusion rate (ml/h)");
 
-        series = new XYChart.Series<>();
-        series.setName(" Infusion ");
-
-
-
+        XYChart.Series series1 = new XYChart.Series<>();
+        XYChart.Series series2 = new XYChart.Series<>();
+        series1.setName(" Infusion ");
 
         double xValue = 0.0;
         double yValue = 0;
@@ -225,32 +231,38 @@ public class Controller {
 
         opdauerHours = opdauerHours + 0.5;
 
-        yValue = model.calculateInfusionRate(rothaarig, drogenabhaengig, alkoholabhaenig);
+        yValue = model.calculateInfusionRate();
 
-        series.getData().add(new XYChart.Data<Number, Number>(xValue, 0));
+        series1.getData().add(new XYChart.Data<Number, Number>(xValue, 0));
+
 
         while (xValue < maxGesamtzeit) {
             double dose;
+
             if (gesamtzeit < opdauerHours) {
                 dose = yValue;
+                series2.getData().add(new XYChart.Data<>(xValue, (dose*1.1)));
             } else {
                 dose = 0;
             }
 
+            series1.getData().add(new XYChart.Data<>(xValue + 0.5, dose));
+            series2.getData().add(new XYChart.Data<>(xValue+0.5, (dose*1.1)));
 
-            series.getData().add(new XYChart.Data<>(xValue + 0.1, dose));
+            xValue += 0.5;
+            gesamtzeit += 0.5;
 
 
-            xValue += 0.1;
-            gesamtzeit += 0.1;
         }
 
-        chart.getData().add(series);
-        series.getNode().setStyle("-fx-stroke: green;"+ "");
+
+        chart.getData().add(series1);
+        chart.getData().add(series2);
         VBox chartLayout = new VBox(chart);
         chartLayout.setPadding(new Insets(10));
         Scene chartScene = new Scene(chartLayout);
         chartStage.setScene(chartScene);
+        //chartScene.getStylesheets().add(getClass().getResource("Diagram.css").toExternalForm());
         chartStage.show();
     }
 
@@ -284,6 +296,7 @@ public class Controller {
         stage.setScene(scene);
         stage.show();
     }
+
 
 
     /*public void initialize() {

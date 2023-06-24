@@ -5,27 +5,20 @@
  -fx-background-repeat: no-repeat;
 }
 
-.chart{
--fx-background-color:ALICEBLUE;
-}
 .chart-series-line {
 -fx-stroke-width: 5px;
 -fx-effect: null;
--fx-stroke: DARKBLUE;
+-fx-stroke: green;
+-fx-background-color:green,white;
 }
-
-.chart-title {
-  -fx-text-fill:DARKBLUE;
-}
-
-
-
-/*
 .chart-content {
     -fx-padding: 30px;
 }
 
-
+.chart-title {
+  -fx-text-fill: #4682b4;
+  -fx-font-size: 1.6em;
+}
 
 .axis-label {
   -fx-text-fill: #4682b4;

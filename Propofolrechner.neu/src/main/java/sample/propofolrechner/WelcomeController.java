@@ -6,7 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class welcomeController {
+public class WelcomeController {
 
     // Member variable, die eine Referenz auf die jeweilige Szene (Fenster) enthält.
     private Stage stage = null;
